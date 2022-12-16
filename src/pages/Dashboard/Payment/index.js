@@ -1,3 +1,5 @@
+import PaymentConfirmation from '../../../components/PaymentConfirmation';
+
 export default function Payment() {
-  return 'Pagamento: Em breve!';
+  return <PaymentConfirmation />;
 }
