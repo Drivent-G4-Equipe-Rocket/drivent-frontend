@@ -1,3 +1,7 @@
+import TicketReservation from '../../../components/TicketReservation';
+
 export default function Payment() {
-  return 'Pagamento: Em breve!';
+  return (
+    <TicketReservation/>
+  );
 }
