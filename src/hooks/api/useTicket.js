@@ -7,14 +7,14 @@ export default function useTicketReservation() {
   const token = useToken();
 
   const {
-    data: ticketTypeData,
+    data: ticketTypesData,
     loading: ticketLoading,
     error: ticketError,
     act: getTicketType,
   } = useAsync(() => ticketApi.getTicketType(token));
 
   return {
-    ticketTypeData,
+    ticketTypesData,
     ticketLoading,
     ticketError,
     getTicketType,

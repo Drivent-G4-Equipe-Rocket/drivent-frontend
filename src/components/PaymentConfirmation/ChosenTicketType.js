@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 
-export default function ChosenTicketType({ ticketId }) {
-  console.log(ticketId);
+export default function ChosenTicketType({ data }) {
   return (
     <TicketChosenContainer>
       <TicketTitle>
-        {ticketId ? 'Online' : 'Presencial'} +{/* {ticketTypeData[0].includesHotel ? ' Com Hotel' : ' Sem Hotel'} */}
+        {data[0]?.isRemote ? 'Online' : 'Presencial'} +{data[0]?.includesHotel ? ' Com Hotel' : ' Sem Hotel'}
       </TicketTitle>
-      {/* <TicketPrice>R$ {ticketTypeData[0].price}</TicketPrice> */}
+      <TicketPrice>R$ {data[0].price}</TicketPrice>
     </TicketChosenContainer>
   );
 }

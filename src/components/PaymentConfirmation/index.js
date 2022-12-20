@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Typography } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -9,13 +9,13 @@ import ChosenTicketType from './ChosenTicketType';
 import { useForm } from '../../hooks/useForm';
 import paymentValidations from './PaymentFormValidations';
 import { toast } from 'react-toastify';
+import TicketTypesContext from '../../contexts/TicketTypesContext';
 
 export default function PaymentConfirmation() {
-  const { ticketTypeData } = useTicketReservation();
-  const [ticketId, setTicketId] = useState();
-  const [loading, setLoading] = useState(true);
-  console.log(ticketTypeData);
+  const { ticketTypes } = useContext(TicketTypesContext);
+  console.log(ticketTypes);
 
+  //constante abaixo vou usar para enviar dados do cartão
   const { handleSubmit, handleChange, data, errors, setData, customHandleChange } = useForm({
     validations: paymentValidations,
     onSubmit: async(data) => {
@@ -35,21 +35,12 @@ export default function PaymentConfirmation() {
     },
   });
 
-  useEffect(() => {
-    if (ticketId) {
-      setData({});
-    }
-    console.log('setei o ticketType');
-    console.log(ticketId);
-    setLoading(false);
-  }, [loading]);
-
   return (
     <>
       <StyledTypography variant="h4">Ingresso e pagamento</StyledTypography>
       <SubTitle variant="h6">Ingresso escolhido</SubTitle>
 
-      <ChosenTicketType ticketId={ticketId}></ChosenTicketType>
+      <ChosenTicketType data={ticketTypes}></ChosenTicketType>
 
       <SubTitle variant="h6">Pagamento</SubTitle>
 
