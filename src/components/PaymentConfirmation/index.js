@@ -1,26 +1,60 @@
+import React from 'react';
 import { Typography } from '@material-ui/core';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Button from '../Form/Button';
 import PaymentForm from './PaymentForm';
+import useTicketReservation from '../../hooks/api/useTicket';
+import ChosenTicketType from './ChosenTicketType';
+import { useForm } from '../../hooks/useForm';
+import paymentValidations from './PaymentFormValidations';
+import { toast } from 'react-toastify';
 
 export default function PaymentConfirmation() {
-  const [ticketType, setTicketType] = useState({
-    isOnline: false,
-    hasHotel: true,
+  const { ticketTypeData } = useTicketReservation();
+  const [ticketId, setTicketId] = useState();
+  const [loading, setLoading] = useState(true);
+  console.log(ticketTypeData);
+
+  const { handleSubmit, handleChange, data, errors, setData, customHandleChange } = useForm({
+    validations: paymentValidations,
+    onSubmit: async(data) => {
+      const newData = {
+        issuer: data.issuer,
+        number: data.number,
+        name: data.name,
+        expirationDate: data.expiry,
+        cvv: data.cvv,
+      };
+      try {
+        // await payTicket(newData);
+        toast('Ticket pago com sucesso!');
+      } catch (error) {
+        toast('Não foi possível pagar seu ticket!');
+      }
+    },
   });
+
+  useEffect(() => {
+    if (ticketId) {
+      setData({});
+    }
+    console.log('setei o ticketType');
+    console.log(ticketId);
+    setLoading(false);
+  }, [loading]);
 
   return (
     <>
       <StyledTypography variant="h4">Ingresso e pagamento</StyledTypography>
       <SubTitle variant="h6">Ingresso escolhido</SubTitle>
-      <TicketChosenContainer ticketType={ticketType}>
-        {ticketType.isOnline ? 'Online' : 'Presencial'} +{ticketType.hasHotel ? ' Com Hotel' : ' Sem Hotel'}
-      </TicketChosenContainer>
+
+      <ChosenTicketType ticketId={ticketId}></ChosenTicketType>
+
       <SubTitle variant="h6">Pagamento</SubTitle>
 
       <PaymentFormContainer>
-        <PaymentForm></PaymentForm>
+        <PaymentForm onSubmit={handleSubmit}></PaymentForm>
       </PaymentFormContainer>
       <SubmitContainer>
         <Button type="submit">Finalizar Pagamento</Button>
@@ -35,17 +69,6 @@ const StyledTypography = styled(Typography)`
 
 const SubTitle = styled(Typography)`
   color: #8e8e8e;
-`;
-
-const TicketChosenContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 33%;
-  height: 15%;
-  border-radius: 20px;
-  background-color: #ffeed2;
-  margin-bottom: 20px;
 `;
 
 const SubmitContainer = styled.div`
