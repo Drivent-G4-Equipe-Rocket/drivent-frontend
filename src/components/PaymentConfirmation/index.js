@@ -13,7 +13,6 @@ import TicketTypesContext from '../../contexts/TicketTypesContext';
 
 export default function PaymentConfirmation() {
   const { ticketTypes } = useContext(TicketTypesContext);
-  console.log(ticketTypes);
 
   //constante abaixo vou usar para enviar dados do cartão
   const { handleSubmit, handleChange, data, errors, setData, customHandleChange } = useForm({
@@ -28,6 +27,7 @@ export default function PaymentConfirmation() {
       };
       try {
         // await payTicket(newData);
+
         toast('Ticket pago com sucesso!');
       } catch (error) {
         toast('Não foi possível pagar seu ticket!');
@@ -72,31 +72,19 @@ const SubmitContainer = styled.div`
 `;
 
 const PaymentFormContainer = styled.div`
-  width: 100%;
   #PaymentForm {
     margin-left: 0px;
     display: flex;
     justify-content: flex-start;
     > form {
+      width: 100%;
       margin-left: 20px;
 
-      > input {
-        margin: 5px;
-        border-radius: 5px;
-        border: solid #8e8e8e 1px;
-        height: 20%;
-        width: 55%;
-      }
-      > input::placeholder {
-        text-align: start;
-        font-size: 16px;
-        padding: 3px 0px 3px 10px;
-      }
       .expiryDate {
-        width: 30%;
+        width: 70%;
       }
       .CVC {
-        width: 15%;
+        width: 30%;
       }
     }
   }
