@@ -16,8 +16,8 @@ export default function TicketReservation() {
   return (
     <>
       <StyledTypography variant="h4">Ingresso e Pagamento</StyledTypography>
-      <TicketSelection types={ticketTypes} isOpen={hotelSelectionIsOpen} toggleComponent={setHotelSelectionOpen}/>
-      { hotelSelectionIsOpen ? <HotelIncludedSelection types={ticketTypes} isOpen={postReservationIsOpen} toggleComponent={setPostReservationOpen}/> : null }
+      <TicketSelection types={ticketTypes} isOpenHotel={hotelSelectionIsOpen} toggleHotelComponent={setHotelSelectionOpen} isOpenPost={postReservationIsOpen} togglePostComponent={setPostReservationOpen}/>
+      { hotelSelectionIsOpen ? <HotelIncludedSelection types={ticketTypes} isOpenPost={postReservationIsOpen} togglePostComponent={setPostReservationOpen}/> : null }
       { postReservationIsOpen ? <PostTicketReservation/> : null }
     </>
   );

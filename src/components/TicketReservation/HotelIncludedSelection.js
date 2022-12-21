@@ -1,11 +1,27 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
-export default function HotelIncludedSelection({ types, isOpen, toggleComponent }) {
+export default function HotelIncludedSelection({ types, togglePostComponent }) {
+  const [isFirstSelected, setFirstSelected] = useState(false);
+  const [isSecondSelected, setSecondSelected] = useState(false);
+
+  openClosePostComponent();
+
+  function selectNoHotelOption() {
+    setFirstSelected(!isFirstSelected);
+    setSecondSelected(false);
+  };
+
   function selectHotelOption() {
-    if(isOpen) {
-      toggleComponent(false);
+    setSecondSelected(!isSecondSelected);
+    setFirstSelected(false);
+  };
+
+  function openClosePostComponent() {
+    if(isFirstSelected || isSecondSelected) {
+      togglePostComponent(true);
     } else {
-      toggleComponent(true);
+      togglePostComponent(false);
     }
   };
 
@@ -13,13 +29,13 @@ export default function HotelIncludedSelection({ types, isOpen, toggleComponent 
     <>
       <Description>Ótimo! Agora escolha sua modalidade de hospedagem</Description>
       <ButtonPair>
-        <SelectionButton onClick={selectHotelOption}>
+        <SelectionButton onClick={selectNoHotelOption} style={{ background: isFirstSelected ?  '#FFEED2' : '#FFFFFF' }}>
           <h4>Sem Hotel</h4>
           <h5>+ R$ 0</h5>
         </SelectionButton>
-        <SelectionButton>
+        <SelectionButton onClick={selectHotelOption} style={{ background: isSecondSelected ?  '#FFEED2' : '#FFFFFF' }}>
           <h4>Com Hotel</h4>
-          <h5>+ R$</h5>
+          <h5>+ R$ 350</h5>
         </SelectionButton>
       </ButtonPair>
     </>
