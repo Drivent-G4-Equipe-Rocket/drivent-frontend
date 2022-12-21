@@ -1,13 +1,22 @@
 import styled from 'styled-components';
 
-export default function TicketSelection(type) {
-  console.log(type);
+export default function TicketSelection({ types, isOpen, toggleComponent }) {
+  console.log(types);
+
+  function selectTicket() {
+    if(isOpen) {
+      toggleComponent(false);
+    } else {
+      toggleComponent(true);
+    }
+  };
+
   return (
     <>
       <Description>Primeiro, escolha sua modalidade de ingresso</Description>
       <ButtonPair>
-        <SelectionButton>
-          <h4>oi</h4>
+        <SelectionButton onClick={selectTicket}>
+          <h4>Presencial</h4>
           <h5>R$ 250,00</h5>
         </SelectionButton>
         <SelectionButton>

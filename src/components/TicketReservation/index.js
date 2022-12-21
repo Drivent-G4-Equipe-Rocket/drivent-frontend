@@ -1,29 +1,24 @@
-import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
+import { useContext, useState } from 'react';
+import TicketTypesContext from '../../contexts/TicketTypesContext';
 import { toast } from 'react-toastify';
 import TicketSelection from './TicketSelection';
 import HotelIncludedSelection from './HotelIncludedSelection';
 import PostTicketReservation from './PostTicketReservation';
-import useTicketReservation from '../../hooks/api/useTicketReservation';
 
 export default function TicketReservation() {
-  const { ticketData } = useTicketReservation();
-  console.log(ticketData);
-  const [ type, setType ] = useState([]);
-
-  useEffect(() => {
-    if(ticketData) {
-      setType(ticketData);
-    }
-  }, []);
+  const [hotelSelectionIsOpen, setHotelSelectionOpen] = useState(false);
+  const [postReservationIsOpen, setPostReservationOpen] = useState(false);
+  const { ticketTypes } = useContext(TicketTypesContext);
+  console.log(ticketTypes);
 
   return (
     <>
       <StyledTypography variant="h4">Ingresso e Pagamento</StyledTypography>
-      <TicketSelection type={type}/>
-      <HotelIncludedSelection/>
-      <PostTicketReservation/>
+      <TicketSelection types={ticketTypes} isOpen={hotelSelectionIsOpen} toggleComponent={setHotelSelectionOpen}/>
+      { hotelSelectionIsOpen ? <HotelIncludedSelection types={ticketTypes} isOpen={postReservationIsOpen} toggleComponent={setPostReservationOpen}/> : null }
+      { postReservationIsOpen ? <PostTicketReservation/> : null }
     </>
   );
 }

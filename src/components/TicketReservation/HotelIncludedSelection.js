@@ -1,11 +1,19 @@
 import styled from 'styled-components';
 
-export default function HotelIncludedSelection(types) {
+export default function HotelIncludedSelection({ types, isOpen, toggleComponent }) {
+  function selectHotelOption() {
+    if(isOpen) {
+      toggleComponent(false);
+    } else {
+      toggleComponent(true);
+    }
+  };
+
   return (
     <>
       <Description>Ótimo! Agora escolha sua modalidade de hospedagem</Description>
       <ButtonPair>
-        <SelectionButton>
+        <SelectionButton onClick={selectHotelOption}>
           <h4>Sem Hotel</h4>
           <h5>+ R$ 0</h5>
         </SelectionButton>
