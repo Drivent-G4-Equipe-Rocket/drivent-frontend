@@ -9,20 +9,20 @@ import useTicketReservation from '../../hooks/api/useTicketReservation';
 
 export default function TicketReservation() {
   const { ticketData } = useTicketReservation();
+  console.log(ticketData);
   const [ type, setType ] = useState([]);
 
   useEffect(() => {
     if(ticketData) {
-      console.log(ticketData);
-      setType([...ticketData]);
+      setType(ticketData);
     }
   }, []);
 
   return (
     <>
       <StyledTypography variant="h4">Ingresso e Pagamento</StyledTypography>
-      <TicketSelection types={type}/>
-      <HotelIncludedSelection types={type}/>
+      <TicketSelection type={type}/>
+      <HotelIncludedSelection/>
       <PostTicketReservation/>
     </>
   );

@@ -1,17 +1,18 @@
 import styled from 'styled-components';
 
-export default function TicketSelection(types) {
+export default function TicketSelection(type) {
+  console.log(type);
   return (
     <>
       <Description>Primeiro, escolha sua modalidade de ingresso</Description>
       <ButtonPair>
         <SelectionButton>
-          <h4>{types.types[0].name}</h4>
-          <h5>R$ { parseFloat(types.types[0].price).toFixed(2) }</h5>
+          <h4>oi</h4>
+          <h5>R$ 250,00</h5>
         </SelectionButton>
         <SelectionButton>
-          <h4>{types.types[2].name}</h4>
-          <h5>R$ { parseFloat(types.types[2].price).toFixed(2) }</h5>
+          <h4>Online</h4>
+          <h5>R$ 0</h5>
         </SelectionButton>
       </ButtonPair>
     </>

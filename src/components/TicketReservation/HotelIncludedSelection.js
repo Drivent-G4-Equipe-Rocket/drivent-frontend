@@ -7,11 +7,11 @@ export default function HotelIncludedSelection(types) {
       <ButtonPair>
         <SelectionButton>
           <h4>Sem Hotel</h4>
-          <h5>+ R$ { types.types[0].includesHotel ? parseFloat(350).toFixed(2) : parseFloat(0).toFixed(2) }</h5>
+          <h5>+ R$ 0</h5>
         </SelectionButton>
         <SelectionButton>
           <h4>Com Hotel</h4>
-          <h5>+ R$ { types.types[2].includesHotel ? parseFloat(350).toFixed(2) : parseFloat(0).toFixed(2) }</h5>
+          <h5>+ R$</h5>
         </SelectionButton>
       </ButtonPair>
     </>
