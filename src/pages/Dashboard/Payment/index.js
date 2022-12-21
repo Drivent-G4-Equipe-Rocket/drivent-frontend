@@ -1,7 +1,5 @@
-import TicketReservation from '../../../components/TicketReservation';
+import PaymentConfirmation from '../../../components/PaymentConfirmation';
 
 export default function Payment() {
-  return (
-    <TicketReservation/>
-  );
+  return <PaymentConfirmation />;
 }
