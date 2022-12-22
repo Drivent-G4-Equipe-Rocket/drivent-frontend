@@ -10,6 +10,7 @@ import { useForm } from '../../hooks/useForm';
 import paymentValidations from './PaymentFormValidations';
 import { toast } from 'react-toastify';
 import TicketTypesContext from '../../contexts/TicketTypesContext';
+import { SuccessfullyPaid } from './SuccessfullyPaid';
 
 export default function PaymentConfirmation() {
   const { ticketTypes } = useContext(TicketTypesContext);
@@ -44,9 +45,10 @@ export default function PaymentConfirmation() {
 
       <SubTitle variant="h6">Pagamento</SubTitle>
 
-      <PaymentFormContainer>
+      <SuccessfullyPaid />
+      {/* <PaymentFormContainer>
         <PaymentForm onSubmit={handleSubmit}></PaymentForm>
-      </PaymentFormContainer>
+      </PaymentFormContainer> */}
       <SubmitContainer>
         <Button type="submit">Finalizar Pagamento</Button>
       </SubmitContainer>
@@ -59,6 +61,7 @@ const StyledTypography = styled(Typography)`
 `;
 
 const SubTitle = styled(Typography)`
+  margin-bottom: 20px !important;
   color: #8e8e8e;
 `;
 
