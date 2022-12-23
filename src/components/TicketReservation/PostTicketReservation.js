@@ -1,12 +1,28 @@
 import styled from 'styled-components';
 import useSaveTicketReservation from '../../hooks/api/useSaveTicketReservation';
+import { toast } from 'react-toastify';
 
-export default function PostTicketReservation() {
-  const { saveTicketReservationLoading, saveTicketReservation } = useSaveTicketReservation();
+export default function PostTicketReservation({ types, typeSelected, includesHotel }) {
+  const { saveTicketReservation } = useSaveTicketReservation();
+  const ticketInfo = types.filter(e => e.name === typeSelected && e.includesHotel === includesHotel);  
+
+  async function postReservation() {
+    const newData = {
+      ticketTypeId: ticketInfo[0].id
+    };
+
+    try {
+      await saveTicketReservation(newData);
+      toast('Ticket reservado com sucesso!');
+    } catch (err) {
+      toast('Não foi possível reservar seu ticket!');
+    }
+  };
+
   return (
     <>
-      <Description>Fechado! O total ficou em <b>R$ 600</b>. Agora é só confirmar:</Description>
-      <ConfirmButton><h4>RESERVAR INGRESSO</h4></ConfirmButton>
+      <Description>Fechado! O total ficou em <b>R$ {ticketInfo[0].price}</b>. Agora é só confirmar:</Description>
+      <ConfirmButton onClick={postReservation}><h4>RESERVAR INGRESSO</h4></ConfirmButton>
     </>
   );
 }

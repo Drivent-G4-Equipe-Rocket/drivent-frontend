@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-export default function HotelIncludedSelection({ types, togglePostComponent }) {
+export default function HotelIncludedSelection({ togglePostComponent, setIncludesHotel }) {
   const [isFirstSelected, setFirstSelected] = useState(false);
   const [isSecondSelected, setSecondSelected] = useState(false);
 
@@ -10,11 +10,13 @@ export default function HotelIncludedSelection({ types, togglePostComponent }) {
   function selectNoHotelOption() {
     setFirstSelected(!isFirstSelected);
     setSecondSelected(false);
+    setIncludesHotel(false);
   };
 
   function selectHotelOption() {
     setSecondSelected(!isSecondSelected);
     setFirstSelected(false);
+    setIncludesHotel(true);
   };
 
   function openClosePostComponent() {

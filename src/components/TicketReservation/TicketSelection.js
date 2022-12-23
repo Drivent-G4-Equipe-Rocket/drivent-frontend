@@ -1,8 +1,7 @@
 import { useState } from 'react'; 
 import styled from 'styled-components';
 
-export default function TicketSelection({ types, isOpenHotel, toggleHotelComponent, isOpenPost, togglePostComponent }) {
-  console.log(types);
+export default function TicketSelection({ isOpenHotel, toggleHotelComponent, isOpenPost, togglePostComponent, setTypeSelected }) {
   const [isFirstSelected, setFirstSelected] = useState(false);
   const [isSecondSelected, setSecondSelected] = useState(false);
 
@@ -13,6 +12,7 @@ export default function TicketSelection({ types, isOpenHotel, toggleHotelCompone
     setSecondSelected(false);
     toggleHotelComponent(!isOpenHotel);
     togglePostComponent(false);
+    setTypeSelected('Presencial');
   };
 
   function selectOnlineTicket() {
@@ -20,6 +20,7 @@ export default function TicketSelection({ types, isOpenHotel, toggleHotelCompone
     setFirstSelected(false);
     toggleHotelComponent(false);
     togglePostComponent(!isOpenPost);
+    setTypeSelected('Online');
   };
 
   function openClosePostComponent() {
@@ -36,11 +37,11 @@ export default function TicketSelection({ types, isOpenHotel, toggleHotelCompone
       <ButtonPair>
         <SelectionButton onClick={selectPresentialTicket} style={{ background: isFirstSelected ?  '#FFEED2' : '#FFFFFF' }}>
           <h4>Presencial</h4>
-          <h5>R$ {types[0].price}</h5>
+          <h5>R$ 250,00</h5>
         </SelectionButton>
         <SelectionButton onClick={selectOnlineTicket} style={{ background: isSecondSelected ?  '#FFEED2' : '#FFFFFF' }}>
           <h4>Online</h4>
-          <h5>R$ {types[2].price}</h5>
+          <h5>R$ 100,00</h5>
         </SelectionButton>
       </ButtonPair>
     </>
