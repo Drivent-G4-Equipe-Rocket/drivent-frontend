@@ -48,7 +48,6 @@ export default function PaymentForm({ ticketTypes }) {
       cardData: { ...newCardData },
     };
     try {
-      console.log(paymentBody);
       const result = await savePayment(paymentBody);
       console.log(result);
       toast('Ticket pago com sucesso!');

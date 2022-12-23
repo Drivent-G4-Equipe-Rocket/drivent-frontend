@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { Typography } from '@material-ui/core';
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PaymentForm from './PaymentForm';
 import ChosenTicketType from './ChosenTicketType';
