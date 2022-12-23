@@ -4,19 +4,18 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PaymentForm from './PaymentForm';
 import ChosenTicketType from './ChosenTicketType';
-
-import TicketTypesContext from '../../contexts/TicketTypesContext';
 import { SuccessfullyPaid } from './SuccessfullyPaid';
-import TicketContext from '../../contexts/TicketContext';
 import useTicketPaid from '../../hooks/api/useTicketPaid';
 
 export default function PaymentConfirmation() {
-  const { ticketTypes } = useContext(TicketTypesContext);
-  console.log(ticketTypes);
-  const { ticketData } = useContext(TicketContext);
-  console.log(ticketData);
-  const [ticketStatus, setTicketStatus] = useState(ticketData?.status);
-  console.log(ticketStatus);
+  const { ticketData } = useTicketPaid();
+  const [showPaymentForm, setShowPaymentForm] = useState(true);
+
+  useEffect(() => {
+    if (ticketData?.status == 'PAID') {
+      setShowPaymentForm(false);
+    }
+  });
 
   return (
     <>
@@ -27,16 +26,12 @@ export default function PaymentConfirmation() {
 
       <SubTitle variant="h6">Pagamento</SubTitle>
 
-      {ticketData?.status === 'PAID' ? (
+      {showPaymentForm === false ? (
         <SuccessfullyPaid />
       ) : (
         <>
           <PaymentFormContainer>
-            <PaymentForm
-              ticketData={ticketData}
-              ticketStatus={ticketStatus}
-              setTicketStatus={setTicketStatus}
-            ></PaymentForm>
+            <PaymentForm ticketData={ticketData} setShowPaymentForm={setShowPaymentForm}></PaymentForm>
           </PaymentFormContainer>
         </>
       )}
