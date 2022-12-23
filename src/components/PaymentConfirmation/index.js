@@ -11,10 +11,14 @@ import paymentValidations from './PaymentFormValidations';
 import { toast } from 'react-toastify';
 import TicketTypesContext from '../../contexts/TicketTypesContext';
 import { SuccessfullyPaid } from './SuccessfullyPaid';
+import TicketContext from '../../contexts/TicketContext';
+import useTicketPaid from '../../hooks/api/useTicketPaid';
 
 export default function PaymentConfirmation() {
   const { ticketTypes } = useContext(TicketTypesContext);
-  console.log(ticketTypes);
+  console.log(' types', ticketTypes);
+  const { ticketData }  = useTicketPaid();
+  console.log('ticket', ticketData);
 
   //constante abaixo vou usar para enviar dados do cartão
   const { handleSubmit, handleChange, data, errors, setData, customHandleChange } = useForm({
@@ -44,14 +48,16 @@ export default function PaymentConfirmation() {
       <ChosenTicketType data={ticketTypes}></ChosenTicketType>
 
       <SubTitle variant="h6">Pagamento</SubTitle>
-
-      <SuccessfullyPaid />
-      {/* <PaymentFormContainer>
-        <PaymentForm onSubmit={handleSubmit}></PaymentForm>
-      </PaymentFormContainer> */}
-      <SubmitContainer>
-        <Button type="submit">Finalizar Pagamento</Button>
-      </SubmitContainer>
+      
+      {ticketData?.status === 'PAID'? <SuccessfullyPaid />: 
+        <>
+          <PaymentFormContainer>
+            <PaymentForm onSubmit={handleSubmit}></PaymentForm>
+          </PaymentFormContainer><SubmitContainer>
+            <Button type="submit">Finalizar Pagamento</Button>
+          </SubmitContainer>
+        </>
+      }
     </>
   );
 }
