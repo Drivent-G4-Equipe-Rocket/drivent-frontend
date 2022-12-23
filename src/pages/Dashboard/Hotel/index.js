@@ -5,29 +5,38 @@ import UnauthourizedPayment from './unauthorizedPayment';
 import UnauthourizedTicketType from './unauthorizedTicketType';
 
 export default function Hotel() {
-  const { ticketData }  = useTicketPaid();
-  console.log(ticketData);
+  const { ticketData } = useTicketPaid();
 
   if (ticketData?.status === 'RESERVED') {
-    return (<>
-      <StyledTypography variant="h4">Escolha de Hotel e quarto</StyledTypography>
-      <HotelsAndRoomsContainer><UnauthourizedPayment/></HotelsAndRoomsContainer>
-    </>); 
-  } else if (ticketData?.ticketTypeId === 2 || ticketData?.ticketTypeId === 3 || ticketData?.ticketTypeId === 4) {
-    return (<>
-      <StyledTypography variant="h4">Escolha de Hotel e quarto</StyledTypography>
-      <HotelsAndRoomsContainer><UnauthourizedTicketType/></HotelsAndRoomsContainer>
-    </>); 
+    return (
+      <>
+        <StyledTypography variant="h4">Escolha de Hotel e quarto</StyledTypography>
+        <HotelsAndRoomsContainer>
+          <UnauthourizedPayment />
+        </HotelsAndRoomsContainer>
+      </>
+    );
+  } else if (ticketData?.TicketType.isRemote === true || ticketData?.TicketType.includesHotel === false) {
+    return (
+      <>
+        <StyledTypography variant="h4">Escolha de Hotel e quarto</StyledTypography>
+        <HotelsAndRoomsContainer>
+          <UnauthourizedTicketType />
+        </HotelsAndRoomsContainer>
+      </>
+    );
   } else {
-    return (<>
-      <StyledTypography variant="h4">Escolha de Hotel e quarto</StyledTypography>
-      <HotelsAndRoomsContainer>Em breve</HotelsAndRoomsContainer>
-    </>);
+    return (
+      <>
+        <StyledTypography variant="h4">Escolha de Hotel e quarto</StyledTypography>
+        <HotelsAndRoomsContainer>Em breve</HotelsAndRoomsContainer>
+      </>
+    );
   }
 }
 
 const StyledTypography = styled(Typography)`
-  margin-bottom: 20px!important;
+  margin-bottom: 20px !important;
 `;
 
 const HotelsAndRoomsContainer = styled.div`
