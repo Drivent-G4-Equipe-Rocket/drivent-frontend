@@ -7,9 +7,9 @@ import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import useSavePayment from '../../hooks/api/useSavePayment';
 
-export default function PaymentForm({ ticketTypes }) {
+export default function PaymentForm({ ticketData, ticketStatus, setTicketStatus }) {
   const { savePayment } = useSavePayment();
-  const ticketId = ticketTypes[0]?.id;
+  const ticketId = ticketData?.id;
   const [issuer, setIssuer] = useState('');
   const [maxLength, setMaxLength] = useState();
   const [cardData, setCardData] = useState({
@@ -52,6 +52,7 @@ export default function PaymentForm({ ticketTypes }) {
       const result = await savePayment(paymentBody);
       console.log(result);
       toast('Ticket pago com sucesso!');
+      setTicketStatus('PAID');
     } catch (error) {
       toast('Não foi possível pagar seu ticket!');
     }
