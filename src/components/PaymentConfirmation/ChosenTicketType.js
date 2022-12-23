@@ -4,9 +4,10 @@ export default function ChosenTicketType({ data }) {
   return (
     <TicketChosenContainer>
       <TicketTitle>
-        {data[0]?.isRemote ? 'Online' : 'Presencial'} +{data[0]?.includesHotel ? ' Com Hotel' : ' Sem Hotel'}
+        {data?.TicketType.isRemote ? 'Online' : 'Presencial'} +
+        {data?.TicketType.includesHotel ? ' Com Hotel' : ' Sem Hotel'}
       </TicketTitle>
-      <TicketPrice>R$ {data[0].price}</TicketPrice>
+      <TicketPrice>R$ {data?.TicketType.price}</TicketPrice>
     </TicketChosenContainer>
   );
 }
