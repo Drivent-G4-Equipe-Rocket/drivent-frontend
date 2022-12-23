@@ -6,7 +6,7 @@ import TicketSelection from './TicketSelection';
 import HotelIncludedSelection from './HotelIncludedSelection';
 import PostTicketReservation from './PostTicketReservation';
 
-export default function TicketReservation() {
+export default function TicketReservation({ setShow }) {
   const [hotelSelectionIsOpen, setHotelSelectionOpen] = useState(false);
   const [postReservationIsOpen, setPostReservationOpen] = useState(false);
   const [typeSelected, setTypeSelected] = useState('None');
@@ -16,13 +16,32 @@ export default function TicketReservation() {
   return (
     <>
       <StyledTypography variant="h4">Ingresso e Pagamento</StyledTypography>
-      <TicketSelection isOpenHotel={hotelSelectionIsOpen} toggleHotelComponent={setHotelSelectionOpen} isOpenPost={postReservationIsOpen} togglePostComponent={setPostReservationOpen} setTypeSelected={setTypeSelected}/>
-      { hotelSelectionIsOpen ? <HotelIncludedSelection isOpenPost={postReservationIsOpen} togglePostComponent={setPostReservationOpen} setIncludesHotel={setIncludesHotel}/> : null }
-      { postReservationIsOpen ? <PostTicketReservation types={ticketTypes} typeSelected={typeSelected} includesHotel={includesHotel}/> : null }
+      <TicketSelection
+        isOpenHotel={hotelSelectionIsOpen}
+        toggleHotelComponent={setHotelSelectionOpen}
+        isOpenPost={postReservationIsOpen}
+        togglePostComponent={setPostReservationOpen}
+        setTypeSelected={setTypeSelected}
+      />
+      {hotelSelectionIsOpen ? (
+        <HotelIncludedSelection
+          isOpenPost={postReservationIsOpen}
+          togglePostComponent={setPostReservationOpen}
+          setIncludesHotel={setIncludesHotel}
+        />
+      ) : null}
+      {postReservationIsOpen ? (
+        <PostTicketReservation
+          types={ticketTypes}
+          typeSelected={typeSelected}
+          includesHotel={includesHotel}
+          setShow={setShow}
+        />
+      ) : null}
     </>
   );
 }
 
 const StyledTypography = styled(Typography)`
-  margin-bottom: 20px!important;
+  margin-bottom: 20px !important;
 `;
