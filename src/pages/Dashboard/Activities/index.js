@@ -1,3 +1,24 @@
+import useTicketPaid from '../../../hooks/api/useTicketPaid';
+import { Typography, styled } from '@material-ui/core';
+import { PaymentMissing } from './PaymentMissing';
+import { TicketTypeCheck } from './TicketTypeCheck';
+
 export default function Activities() {
-  return 'Atividades: Em breve!';
+  const { ticketData } = useTicketPaid();
+  return (
+    <>
+      <StyledTypography variant="h4">Escolha de atividades </StyledTypography>
+      {ticketData?.status === 'RESERVED' ? (
+        <PaymentMissing />
+      ) : ticketData?.TicketType.isRemote === false ? (
+        <>EM DESENVOLVIMENTO</>
+      ) : (
+        <TicketTypeCheck />
+      )}
+    </>
+  );
 }
+
+const StyledTypography = styled(Typography)`
+  margin-bottom: 20px !important;
+`;
