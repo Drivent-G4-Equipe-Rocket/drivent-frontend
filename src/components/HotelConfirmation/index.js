@@ -8,11 +8,16 @@ export default function HotelConfirmation() {
     <>
       <StyledTypography variant="h4">Escolha de hotel e quartos</StyledTypography>
       <SubTitle variant="h6">Primeiro, escolha seu hotel</SubTitle>
-      <HotelBoxSelect></HotelBoxSelect>
+      <StyledContaineFlex>
+        <HotelBoxSelect></HotelBoxSelect>
+      </StyledContaineFlex>
+      
     </>
   );
 }
-
+const StyledContaineFlex = styled.div`
+  display: flex;
+`;
 const StyledTypography = styled(Typography)`
   margin-bottom: 20px !important;
 `;
