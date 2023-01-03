@@ -12,11 +12,8 @@ import useTicketPaid from '../../hooks/api/useTicketPaid';
 
 export default function PaymentConfirmation() {
   const { ticketTypes } = useContext(TicketTypesContext);
-  console.log(ticketTypes);
   const { ticketData } = useContext(TicketContext);
-  console.log(ticketData);
   const [ticketStatus, setTicketStatus] = useState(ticketData?.status);
-  console.log(ticketStatus);
 
   return (
     <>
