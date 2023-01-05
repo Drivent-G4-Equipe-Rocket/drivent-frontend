@@ -1,15 +1,22 @@
 import styled from 'styled-components';
 import { SubTitle } from '../../../components/PaymentConfirmation';
 import useActivity from '../../../hooks/api/useActivity';
-import dayjs from 'dayjs';
 import formatDays from './formatDays';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import ActivitiesTable from './ActivitiesTable';
 
 export default function ChoseActivities() {
   const [activitiesDays, setActivitiesDays] = useState([]);
+  const [show, setSchow] = useState(false);
+  const [date, setDate] = useState("");
   const { activities } = useActivity();
   console.log(activities);
+
+  function selectDate() {
+    setDate(item); //como pegar esse 'item'? Transformar a div em outro componente passando valores como props.
+    setSchow(true);
+  };
 
   useEffect(() => {
     if (activities) {
@@ -21,10 +28,11 @@ export default function ChoseActivities() {
     <Wrapper>
       <SubTitle>Primeiro, filtre pelo dia do evento:</SubTitle>
       <DaysContainer>
-        {activitiesDays.map((item) => {
-          return <div>{item}</div>;
-        })}
+        { activitiesDays.map((item) => {
+          return <div OnClick={selectDate}>{item}</div>;
+        }) }
       </DaysContainer>
+      { show ? <ActivitiesTable date={date} activities={activities}/> : null }
     </Wrapper>
   );
 }
