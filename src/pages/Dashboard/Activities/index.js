@@ -2,6 +2,7 @@ import useTicketPaid from '../../../hooks/api/useTicketPaid';
 import { Typography, styled } from '@material-ui/core';
 import { PaymentMissing } from './PaymentMissing';
 import { TicketTypeCheck } from './TicketTypeCheck';
+import ChoseActivities from './ChoseActivities';
 
 export default function Activities() {
   const { ticketData } = useTicketPaid();
@@ -11,7 +12,7 @@ export default function Activities() {
       {ticketData?.status === 'RESERVED' ? (
         <PaymentMissing />
       ) : ticketData?.TicketType.isRemote === false ? (
-        <>EM DESENVOLVIMENTO</>
+        <ChoseActivities />
       ) : (
         <TicketTypeCheck />
       )}

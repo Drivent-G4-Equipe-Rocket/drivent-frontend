@@ -43,7 +43,7 @@ const StyledTypography = styled(Typography)`
   margin-bottom: 20px !important;
 `;
 
-const SubTitle = styled(Typography)`
+export const SubTitle = styled(Typography)`
   margin-bottom: 20px !important;
   color: #8e8e8e;
 `;
