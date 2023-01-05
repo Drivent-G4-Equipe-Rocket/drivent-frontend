@@ -1,13 +1,27 @@
 import styled from 'styled-components';
 import { SubTitle } from '../../../components/PaymentConfirmation';
+import useActivity from '../../../hooks/api/useActivity';
+import dayjs from 'dayjs';
+import formatDays from './formatDays';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 export default function ChoseActivities() {
-  const eventDays = ['Sexta, 22/10', 'Sábado, 23/10', 'Domingo, 24/10'];
+  const [activitiesDays, setActivitiesDays] = useState([]);
+  const { activities } = useActivity();
+  console.log(activities);
+
+  useEffect(() => {
+    if (activities) {
+      setActivitiesDays(formatDays(activities));
+    }
+  }, [activities]);
+
   return (
     <Wrapper>
       <SubTitle>Primeiro, filtre pelo dia do evento:</SubTitle>
       <DaysContainer>
-        {eventDays.map((item) => {
+        {activitiesDays.map((item) => {
           return <div>{item}</div>;
         })}
       </DaysContainer>
@@ -41,6 +55,10 @@ const DaysContainer = styled.div`
 
   > div:hover {
     cursor: pointer;
+    background-color: #ffd37d;
+  }
+
+  .selected {
     background-color: #ffd37d;
   }
 `;
