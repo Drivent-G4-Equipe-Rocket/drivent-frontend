@@ -5,18 +5,14 @@ import formatDays from './formatDays';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import ActivitiesTable from './ActivitiesTable';
+import DateButton from './DateButton';
 
 export default function ChoseActivities() {
   const [activitiesDays, setActivitiesDays] = useState([]);
-  const [show, setSchow] = useState(false);
-  const [date, setDate] = useState("");
+  const [show, setShow] = useState(false);
+  const [date, setDate] = useState('');
   const { activities } = useActivity();
   console.log(activities);
-
-  function selectDate() {
-    setDate(item); //como pegar esse 'item'? Transformar a div em outro componente passando valores como props.
-    setSchow(true);
-  };
 
   useEffect(() => {
     if (activities) {
@@ -29,7 +25,7 @@ export default function ChoseActivities() {
       <SubTitle>Primeiro, filtre pelo dia do evento:</SubTitle>
       <DaysContainer>
         { activitiesDays.map((item) => {
-          return <div OnClick={selectDate}>{item}</div>;
+          return <DateButton date={item} setShow={setShow} setDate={setDate}/>;
         }) }
       </DaysContainer>
       { show ? <ActivitiesTable date={date} activities={activities}/> : null }
@@ -45,26 +41,6 @@ const DaysContainer = styled.div`
   display: flex;
   width: 50%;
   justify-content: space-evenly;
-
-  > div {
-    background-color: #e0e0e0;
-    margin-right: 15px;
-    width: 50%;
-    height: 37px;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 16.41px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 4px;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
-  }
-
-  > div:hover {
-    cursor: pointer;
-    background-color: #ffd37d;
-  }
 
   .selected {
     background-color: #ffd37d;
