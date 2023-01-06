@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+import dayjs from 'dayjs';
 
 export default function Activity({ name, startAt, endAt, vacancies }) {
   return(
     <Container>
       <h3>{name}</h3>
-      <h4>{startAt}-{endAt}</h4>
+      <h4>{dayjs(startAt).format('hh:mm')} - {dayjs(endAt).format('hh:mm')}</h4>
     </Container>
   );
 }
