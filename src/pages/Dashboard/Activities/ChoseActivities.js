@@ -10,7 +10,7 @@ import DateButton from './DateButton';
 export default function ChoseActivities() {
   const [activitiesDays, setActivitiesDays] = useState([]);
   const [show, setShow] = useState(false);
-  const [date, setDate] = useState('');
+  const [activityDate, setDate] = useState('');
   const { activities } = useActivity();
   console.log(activities);
 
@@ -28,7 +28,7 @@ export default function ChoseActivities() {
           return <DateButton date={item} setShow={setShow} setDate={setDate}/>;
         }) }
       </DaysContainer>
-      { show ? <ActivitiesTable date={date} activities={activities}/> : null }
+      { show ? <ActivitiesTable date={activityDate} activities={activities}/> : null }
     </Wrapper>
   );
 }
@@ -41,8 +41,4 @@ const DaysContainer = styled.div`
   display: flex;
   width: 50%;
   justify-content: space-evenly;
-
-  .selected {
-    background-color: #ffd37d;
-  }
 `;

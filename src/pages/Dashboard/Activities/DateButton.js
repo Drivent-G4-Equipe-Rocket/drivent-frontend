@@ -3,13 +3,15 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 
 export default function DateButton({ date, setShow, setDate }) {
+  const [isSelected, setSelected] = useState(false);
   function selectDate() {
-    setDate(date); 
+    setDate(date);
     setShow(true);
+    setSelected(!isSelected); 
   };
 
   return(
-    <Button onClick={selectDate}>
+    <Button onClick={selectDate} style={{ background: isSelected ?  '#ffd37d' : '#e0e0e0' }}>
       {date}
     </Button>
   );
