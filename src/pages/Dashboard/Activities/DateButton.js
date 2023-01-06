@@ -2,16 +2,14 @@ import styled from 'styled-components';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
-export default function DateButton({ date, setShow, setDate }) {
-  const [isSelected, setSelected] = useState(false);
+export default function DateButton({ date, activityDate, setShow, setDate }) {
   function selectDate() {
     setDate(date);
     setShow(true);
-    setSelected(!isSelected); 
   };
 
   return(
-    <Button onClick={selectDate} style={{ background: isSelected ?  '#ffd37d' : '#e0e0e0' }}>
+    <Button onClick={selectDate} style={{ background: date === activityDate ?  '#ffd37d' : '#e0e0e0' }}>
       {date}
     </Button>
   );
