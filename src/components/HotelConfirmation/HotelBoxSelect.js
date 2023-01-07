@@ -4,13 +4,22 @@ import { Typography } from '@material-ui/core';
 
 export default function HotelBoxSelect() {
   const { hotel } = useHotels();
-  console.log(hotel);
+
+  function availableVacancies(hotel) {
+    let TotalVacancies = 0;
+    
+    hotel.Rooms?.map((room) => {
+      TotalVacancies += room.capacity - room.Booking.length;
+    });
+  
+    return TotalVacancies;
+  }
 
   return (
     <>
   
       {hotel?.map((hotel, key) => (
-        <ContainerHotel key={key}>
+        <ContainerHotel >
           <ContainerImg > 
             <img src={hotel.image} alt='imagem do hotel'></img>
             <p>{hotel.name}</p>
@@ -20,9 +29,8 @@ export default function HotelBoxSelect() {
             <SubTitle>{room.name}</SubTitle>
           ))}
           <StyledTypography>Vagas disponíveis:</StyledTypography>
-          {hotel.Rooms?.map(room => (
-            <SubTitle>{room.name}</SubTitle>
-          ))}
+          
+          <SubTitle>{availableVacancies(hotel)}</SubTitle>
           
         </ContainerHotel>))}
 
@@ -31,25 +39,25 @@ export default function HotelBoxSelect() {
 }
 
 const StyledTypography = styled(Typography)`
-  margin-bottom: 2px !important;
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 14px;
+  margin-top: 14px !important;
+  font-family: 'Roboto' !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: 12px !important;
+  line-height: 14px !important;
   margin-left: 15px !important;
-  color: #3C3C3C;
+  color: #3C3C3C !important;
 `;
 
 const SubTitle = styled.span`
   margin-bottom: 2px !important;
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 14px;
-  color: #3C3C3C;
-  margin-left: 15px;
+  font-family: 'Roboto' !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  font-size: 12px !important;
+  line-height: 14px !important;
+  color: #3C3C3C !important;
+  margin-left: 15px !important;
 `;
 
 const ContainerHotel = styled.div`
@@ -61,7 +69,7 @@ const ContainerHotel = styled.div`
   border-radius: 10px;
 `;
 const ContainerImg = styled.div`
-  padding: 16px 14px;
+  padding: 16px 14px 0px 14px;
   img {
     width: 168px;
     height: 109px;
