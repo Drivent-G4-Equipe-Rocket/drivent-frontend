@@ -4,36 +4,38 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PaymentForm from './PaymentForm';
 import ChosenTicketType from './ChosenTicketType';
-
-import TicketTypesContext from '../../contexts/TicketTypesContext';
 import { SuccessfullyPaid } from './SuccessfullyPaid';
-import TicketContext from '../../contexts/TicketContext';
 import useTicketPaid from '../../hooks/api/useTicketPaid';
 
 export default function PaymentConfirmation() {
   const { ticketTypes } = useContext(TicketTypesContext);
-  const { ticketData } = useContext(TicketContext);
+  const { ticketContextData } = useContext(TicketContext);
   const [ticketStatus, setTicketStatus] = useState(ticketData?.status);
+  const { ticketData } = useTicketPaid();
+  const [showPaymentForm, setShowPaymentForm] = useState(true);
+
+  useEffect(() => {
+    if (ticketContextData?.status == 'PAID') {
+      setShowPaymentForm(false);
+    }
+  });
+
 
   return (
     <>
       <StyledTypography variant="h4">Ingresso e pagamento</StyledTypography>
       <SubTitle variant="h6">Ingresso escolhido</SubTitle>
 
-      <ChosenTicketType data={ticketData}></ChosenTicketType>
+      <ChosenTicketType data={ticketContextData}></ChosenTicketType>
 
       <SubTitle variant="h6">Pagamento</SubTitle>
 
-      {ticketData?.status === 'PAID' ? (
+      {showPaymentForm === false ? (
         <SuccessfullyPaid />
       ) : (
         <>
           <PaymentFormContainer>
-            <PaymentForm
-              ticketData={ticketData}
-              ticketStatus={ticketStatus}
-              setTicketStatus={setTicketStatus}
-            ></PaymentForm>
+            <PaymentForm ticketData={ticketContextData} setShowPaymentForm={setShowPaymentForm}></PaymentForm>
           </PaymentFormContainer>
         </>
       )}
@@ -45,7 +47,7 @@ const StyledTypography = styled(Typography)`
   margin-bottom: 20px !important;
 `;
 
-const SubTitle = styled(Typography)`
+export const SubTitle = styled(Typography)`
   margin-bottom: 20px !important;
   color: #8e8e8e;
 `;

@@ -10,7 +10,6 @@ export async function getTicketType(token) {
   return response.data;
 }
 export async function getTicket(token) {
-  console.log('entrei no getTicket');
   const response = await api.get('/tickets', {
     headers: {
       Authorization: `Bearer ${token}`,
