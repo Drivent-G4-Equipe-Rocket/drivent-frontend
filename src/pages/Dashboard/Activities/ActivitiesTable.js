@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import formatDays from './formatDays';
 import dayjs from 'dayjs';
+
 import Activity from './Activity';
 
 export default function ActivitiesTable({ date, activities }) {
