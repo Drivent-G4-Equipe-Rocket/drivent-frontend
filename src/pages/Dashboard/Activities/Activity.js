@@ -15,7 +15,7 @@ export default function Activity({ name, startAt, endAt, vacancies }) {
           <IonIcon icon={vacancies > 0 ? enterOutline : closeCircleOutline} color='#078632'/>
         </div>
         <div>
-          <h4>{vacancies} vagas</h4>
+          <h4>{vacancies > 0 ? `${vacancies} vagas` : 'Esgotado'}</h4>
         </div>
       </Icon>
     </Container>
