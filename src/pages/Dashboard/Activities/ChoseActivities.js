@@ -24,11 +24,11 @@ export default function ChoseActivities() {
     <Wrapper>
       <SubTitle>Primeiro, filtre pelo dia do evento:</SubTitle>
       <DaysContainer>
-        { activitiesDays.map((item) => {
-          return <DateButton date={item} activityDate={activityDate} setShow={setShow} setDate={setDate}/>;
-        }) }
+        {activitiesDays?.map((item) => {
+          return <DateButton date={item} activityDate={activityDate} setShow={setShow} setDate={setDate} />;
+        })}
       </DaysContainer>
-      { show ? <ActivitiesTable date={activityDate} activities={activities}/> : null }
+      {show ? <ActivitiesTable date={activityDate} activities={activities} /> : null}
     </Wrapper>
   );
 }
