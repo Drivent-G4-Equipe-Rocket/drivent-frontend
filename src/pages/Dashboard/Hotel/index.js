@@ -1,3 +1,4 @@
+import HotelConfirmation from '../../../components/HotelConfirmation';
 import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
 import useTicketPaid from '../../../hooks/api/useTicketPaid';
@@ -29,7 +30,7 @@ export default function Hotel() {
     return (
       <>
         <StyledTypography variant="h4">Escolha de Hotel e quarto</StyledTypography>
-        <HotelsAndRoomsContainer>Em breve</HotelsAndRoomsContainer>
+        <HotelsAndRoomsContainer><HotelConfirmation/></HotelsAndRoomsContainer>
       </>
     );
   }
