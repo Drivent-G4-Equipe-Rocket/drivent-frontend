@@ -12,7 +12,7 @@ export default function formatDays(activities) {
   const days = [];
   for (let i = 0; i < activities.length; i++) {
     const formatted = dayjs(activities[i].date).format('dddd, DD/MM');
-    console.log(dayjs.utc(activities[i].startAt).format('HH'));
+
     if (!days.includes(formatted)) {
       days.push(formatted);
     }

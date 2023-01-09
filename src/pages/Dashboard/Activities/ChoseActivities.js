@@ -12,7 +12,6 @@ export default function ChoseActivities() {
   const [show, setShow] = useState(false);
   const [activityDate, setDate] = useState('');
   const { activities } = useActivity();
-  console.log(activities);
 
   useEffect(() => {
     if (activities) {
