@@ -2,15 +2,31 @@ import styled from 'styled-components';
 import dayjs from 'dayjs';
 import { IonIcon } from '@ionic/react';
 import { enterOutline, closeCircleOutline } from 'ionicons/icons';
+import useSaveActivity from '../../../hooks/api/useSaveActivity';
+import { toast } from 'react-toastify';
 
-export default function Activity({ name, startAt, endAt, vacancies }) {
+export default function Activity({ activityId, name, startAt, endAt, vacancies }) {
+  const { saveActivity } = useSaveActivity();
+  async function postActivity() {
+    const newData = {
+      activityId: activityId,
+    };
+
+    try {
+      await saveActivity(newData);
+      toast('Inscrição na atividade feita com sucesso!');
+    } catch (error) {
+      toast('Não foi possível se inscrever na atividade!');
+    }
+  }
+
   return(
     <Container>
       <div>
         <h3>{name}</h3>
         <h4>{dayjs(startAt).format('hh:mm')} - {dayjs(endAt).format('hh:mm')}</h4>
       </div>
-      <Icon>
+      <Icon onClick={postActivity}>
         <div>
           <IonIcon icon={vacancies > 0 ? enterOutline : closeCircleOutline} color='#078632'/>
         </div>
