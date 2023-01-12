@@ -25,7 +25,7 @@ export default function ChoseActivities() {
       <SubTitle>Primeiro, filtre pelo dia do evento:</SubTitle>
       <DaysContainer>
         {activitiesDays?.map((item) => {
-          return <DateButton date={item} activityDate={activityDate} setShow={setShow} setDate={setDate} />;
+          return <DateButton key={item} date={item} activityDate={activityDate} setShow={setShow} setDate={setDate} />;
         })}
       </DaysContainer>
       {show ? <ActivitiesTable date={activityDate} activities={activities} /> : null}
