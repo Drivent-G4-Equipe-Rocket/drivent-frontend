@@ -13,7 +13,7 @@ import UserContext from '../../contexts/UserContext';
 
 import useSignIn from '../../hooks/api/useSignIn';
 import GithubBtn from '../../components/GithubButton';
-import styled from 'styled-components';
+import SpacedText from '../../components/SpacedText';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
@@ -60,7 +60,7 @@ export default function SignIn() {
             Entrar
           </Button>
         </form>
-        <SpacedButton>ou</SpacedButton>
+        <SpacedText>ou</SpacedText>
         <GithubBtn fullWidth>Entre com Github</GithubBtn>
       </Row>
       <Row>
@@ -69,7 +69,3 @@ export default function SignIn() {
     </AuthLayout>
   );
 }
-
-const SpacedButton = styled.p`
-  margin: 10px 0px;
-`;

@@ -7,6 +7,7 @@ const GithubBtn = withStyles({
     '&:hover': {
       background: '#ed6c02',
     },
+    margin: '10px 0px 5px 0px',
   },
 })(Button);
 
