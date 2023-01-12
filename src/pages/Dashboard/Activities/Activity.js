@@ -14,14 +14,12 @@ dayjs.extend(timezone);
 dayjs.tz.setDefault('America/Sao_Paulo');
 
 export default function Activity({ activityId, name, startAt, endAt, vacancies }) {
-  const [scheduleArray, setSchedule] = useState([]);
   const { schedules } = useSchedule();
   const [isSubscribed, setSubscribed] = useState(false);
   const { saveActivity } = useSaveActivity();
 
   useEffect(() => {
     if (schedules) {
-      setSchedule(schedules);
       schedules.forEach(e => {
         if(e.activityId === activityId) {
           setSubscribed(true);
