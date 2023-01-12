@@ -10,15 +10,15 @@ import { Row, Title, Label } from '../../components/Auth';
 
 import EventInfoContext from '../../contexts/EventInfoContext';
 import UserContext from '../../contexts/UserContext';
-
 import useSignIn from '../../hooks/api/useSignIn';
 import GithubBtn from '../../components/GithubButton';
 import SpacedText from '../../components/SpacedText';
+import useGithubLogin from '../../hooks/api/useGithubLogin';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const { githubLogin } = useGithubLogin();
   const { loadingSignIn, signIn } = useSignIn();
 
   const { eventInfo } = useContext(EventInfoContext);
@@ -35,6 +35,16 @@ export default function SignIn() {
       toast('Login realizado com sucesso!');
       navigate('/dashboard');
     } catch (err) {
+      toast('Não foi possível fazer o login!');
+    }
+  }
+
+  async function githubSubmit() {
+    try {
+      const githubUserData = await githubLogin();
+      console.log(githubUserData);
+      toast('Login realizado com sucesso!');
+    } catch (error) {
       toast('Não foi possível fazer o login!');
     }
   }
@@ -61,7 +71,9 @@ export default function SignIn() {
           </Button>
         </form>
         <SpacedText>ou</SpacedText>
-        <GithubBtn fullWidth>Entre com Github</GithubBtn>
+        <GithubBtn fullWidth onClick={githubSubmit}>
+          Entre com Github
+        </GithubBtn>
       </Row>
       <Row>
         <Link to="/enroll">Não possui login? Inscreva-se</Link>

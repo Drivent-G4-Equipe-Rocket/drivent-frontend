@@ -13,7 +13,7 @@ import EventInfoContext from '../../contexts/EventInfoContext';
 
 import useSignUp from '../../hooks/api/useSignUp';
 import GithubBtn from '../../components/GithubButton';
-import SpacedText from '../../components/SpacedText';
+import useGithubLogin from '../../hooks/api/useGithubLogin';
 
 export default function Enroll() {
   const [email, setEmail] = useState('');
@@ -21,6 +21,7 @@ export default function Enroll() {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const { loadingSignUp, signUp } = useSignUp();
+  const { githubLogin } = useGithubLogin();
 
   const navigate = useNavigate();
 
@@ -39,6 +40,16 @@ export default function Enroll() {
       } catch (error) {
         toast('Não foi possível fazer o cadastro!');
       }
+    }
+  }
+
+  async function githubSubmit() {
+    try {
+      const githubUserData = await githubLogin();
+      console.log(githubUserData);
+      toast('Login realizado com sucesso!');
+    } catch (error) {
+      toast('Não foi possível fazer o login!');
     }
   }
 
@@ -71,7 +82,9 @@ export default function Enroll() {
           </Button>
         </form>
         <Row>
-          <GithubBtn fullWidth>Entre com Github</GithubBtn>
+          <GithubBtn fullWidth onClick={githubSubmit}>
+            Entre com Github
+          </GithubBtn>
         </Row>
       </Row>
       <Row>
