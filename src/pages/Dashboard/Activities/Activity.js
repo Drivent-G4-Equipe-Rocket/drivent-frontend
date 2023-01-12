@@ -5,7 +5,9 @@ import timezone from 'dayjs/plugin/timezone';
 import { IonIcon } from '@ionic/react';
 import { enterOutline, closeCircleOutline } from 'ionicons/icons';
 import useSaveActivity from '../../../hooks/api/useSaveActivity';
+import useSchedule from '../../../hooks/api/useSchedule';
 import { toast } from 'react-toastify';
+import { useState, useEffect } from 'react';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -13,6 +15,16 @@ dayjs.tz.setDefault('America/Sao_Paulo');
 
 export default function Activity({ activityId, name, startAt, endAt, vacancies }) {
   const { saveActivity } = useSaveActivity();
+  const [scheduleArray, setSchedule] = useState([]);
+  const { schedules } = useSchedule();
+  console.log(scheduleArray);
+
+  useEffect(() => {
+    if (schedules) {
+      setSchedule(schedules);
+    }
+  }, [schedules]);
+
   async function postActivity() {
     const newData = {
       activityId: activityId,
@@ -36,10 +48,10 @@ export default function Activity({ activityId, name, startAt, endAt, vacancies }
       </div>
       <Icon onClick={postActivity}>
         <div>
-          <IonIcon icon={vacancies > 0 ? enterOutline : closeCircleOutline} color="#078632" />
+          <IonIcon icon={vacancies > 0 ? enterOutline : closeCircleOutline} style={{ color: vacancies > 0 ? '#078632' : '#CC6666' }} />
         </div>
         <div>
-          <h4>{vacancies > 0 ? `${vacancies} vagas` : 'Esgotado'}</h4>
+          <h4 style={{ color: vacancies > 0 ? '#078632' : '#CC6666' }}>{vacancies > 0 ? `${vacancies} vagas` : 'Esgotado'}</h4>
         </div>
       </Icon>
     </Container>

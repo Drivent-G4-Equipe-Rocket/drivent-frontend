@@ -9,6 +9,15 @@ export async function getActivity(token) {
   return response.data;
 }
 
+export async function getActivitySchedule(token) {
+  const response = await api.get('/activities/schedule', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+}
+
 export async function postActivity(body, token) {
   const response = await api.post('/activities', body, {
     headers: {
