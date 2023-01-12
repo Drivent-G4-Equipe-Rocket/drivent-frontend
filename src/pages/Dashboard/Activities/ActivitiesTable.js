@@ -1,9 +1,8 @@
 import styled from 'styled-components';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import formatDays from './formatDays';
 import dayjs from 'dayjs';
-
+import useSchedule from '../../../hooks/api/useSchedule';
 import Activity from './Activity';
 
 export default function ActivitiesTable({ date, activities }) {

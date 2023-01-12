@@ -3,25 +3,30 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import { IonIcon } from '@ionic/react';
-import { enterOutline, closeCircleOutline } from 'ionicons/icons';
+import { enterOutline, closeCircleOutline, checkmarkCircleOutline } from 'ionicons/icons';
+import { useState, useEffect } from 'react';
 import useSaveActivity from '../../../hooks/api/useSaveActivity';
 import useSchedule from '../../../hooks/api/useSchedule';
 import { toast } from 'react-toastify';
-import { useState, useEffect } from 'react';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.tz.setDefault('America/Sao_Paulo');
 
 export default function Activity({ activityId, name, startAt, endAt, vacancies }) {
-  const { saveActivity } = useSaveActivity();
   const [scheduleArray, setSchedule] = useState([]);
   const { schedules } = useSchedule();
-  console.log(scheduleArray);
+  const [isSubscribed, setSubscribed] = useState(false);
+  const { saveActivity } = useSaveActivity();
 
   useEffect(() => {
     if (schedules) {
       setSchedule(schedules);
+      schedules.forEach(e => {
+        if(e.activityId === activityId) {
+          setSubscribed(true);
+        }
+      });
     }
   }, [schedules]);
 
@@ -39,7 +44,7 @@ export default function Activity({ activityId, name, startAt, endAt, vacancies }
   }
 
   return (
-    <Container>
+    <Container style={{ background: isSubscribed ? '#D0FFDB' : '' }}>
       <div>
         <h3>{name}</h3>
         <h4>
@@ -48,10 +53,10 @@ export default function Activity({ activityId, name, startAt, endAt, vacancies }
       </div>
       <Icon onClick={postActivity}>
         <div>
-          <IonIcon icon={vacancies > 0 ? enterOutline : closeCircleOutline} style={{ color: vacancies > 0 ? '#078632' : '#CC6666' }} />
+          <IonIcon icon={isSubscribed ? checkmarkCircleOutline : (vacancies > 0 ? enterOutline : closeCircleOutline)} style={{ color: isSubscribed || vacancies > 0 ? '#078632' : '#CC6666' }} />
         </div>
         <div>
-          <h4 style={{ color: vacancies > 0 ? '#078632' : '#CC6666' }}>{vacancies > 0 ? `${vacancies} vagas` : 'Esgotado'}</h4>
+          <h4 style={{ color: isSubscribed || vacancies > 0 ? '#078632' : '#CC6666' }}>{isSubscribed ? 'Inscrito' : (vacancies > 0 ? `${vacancies} vagas` : 'Esgotado')}</h4>
         </div>
       </Icon>
     </Container>
