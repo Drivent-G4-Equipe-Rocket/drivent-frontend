@@ -35,6 +35,7 @@ export default function Activity({ activityId, name, startAt, endAt, vacancies }
 
     try {
       await saveActivity(newData);
+      setSubscribed(true);
       toast('Inscrição na atividade feita com sucesso!');
     } catch (error) {
       toast('Não foi possível se inscrever na atividade!');
