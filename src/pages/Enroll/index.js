@@ -45,11 +45,12 @@ export default function Enroll() {
 
   async function githubSubmit() {
     try {
-      const githubUserData = await githubLogin();
-      console.log(githubUserData);
-      toast('Login realizado com sucesso!');
+      const githubData = await githubLogin();
+      await signUp(githubData.email, githubData.uid);
+      toast('Inscrito com sucesso! Por favor, faça login.');
+      navigate('/sign-in');
     } catch (error) {
-      toast('Não foi possível fazer o login!');
+      toast('Não foi possível fazer o cadastro!');
     }
   }
 
@@ -83,7 +84,7 @@ export default function Enroll() {
         </form>
         <Row>
           <GithubBtn fullWidth onClick={githubSubmit}>
-            Entre com Github
+            Cadastre-se com o Github
           </GithubBtn>
         </Row>
       </Row>

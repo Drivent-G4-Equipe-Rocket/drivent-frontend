@@ -41,9 +41,12 @@ export default function SignIn() {
 
   async function githubSubmit() {
     try {
-      const githubUserData = await githubLogin();
-      console.log(githubUserData);
+      const githubData = await githubLogin();
+      const githubUserData = await signIn(githubData.email, githubData.uid);
+      setUserData(githubUserData);
+
       toast('Login realizado com sucesso!');
+      navigate('/dashboard');
     } catch (error) {
       toast('Não foi possível fazer o login!');
     }
@@ -72,7 +75,7 @@ export default function SignIn() {
         </form>
         <SpacedText>ou</SpacedText>
         <GithubBtn fullWidth onClick={githubSubmit}>
-          Entre com Github
+          Entre com o Github
         </GithubBtn>
       </Row>
       <Row>
