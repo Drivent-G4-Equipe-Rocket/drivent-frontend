@@ -50,4 +50,5 @@ const Column = styled.div`
   height: 390px;
   background: #FFFFFF; 
   border: 1px solid #D7D7D7;
+  overflow: auto;
 `;

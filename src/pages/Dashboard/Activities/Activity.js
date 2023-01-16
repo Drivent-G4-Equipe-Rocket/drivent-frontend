@@ -17,6 +17,7 @@ export default function Activity({ activityId, name, startAt, endAt, vacancies }
   const { schedules } = useSchedule();
   const [isSubscribed, setSubscribed] = useState(false);
   const { saveActivity } = useSaveActivity();
+  const difference = dayjs(endAt).format('H') - dayjs(startAt).format('H');
 
   useEffect(() => {
     if (schedules) {
@@ -43,13 +44,13 @@ export default function Activity({ activityId, name, startAt, endAt, vacancies }
   }
 
   return (
-    <Container style={{ background: isSubscribed ? '#D0FFDB' : '' }}>
-      <div>
+    <Container style={{ background: isSubscribed ? '#D0FFDB' : '', height: `${difference*80}px` }}>
+      <Left>
         <h3>{name}</h3>
         <h4>
           {dayjs.utc(startAt).format('hh:mm')} - {dayjs.utc(endAt).format('hh:mm')}
         </h4>
-      </div>
+      </Left>
       <Icon onClick={postActivity}>
         <div>
           <IonIcon icon={isSubscribed ? checkmarkCircleOutline : (vacancies > 0 ? enterOutline : closeCircleOutline)} style={{ color: isSubscribed || vacancies > 0 ? '#078632' : '#CC6666' }} />
@@ -64,12 +65,15 @@ export default function Activity({ activityId, name, startAt, endAt, vacancies }
 
 const Container = styled.div`
   width: 265px;
-  height: 79px;
   background: #f1f1f1;
   border-radius: 5px;
   margin: 9px;
   padding: 10px;
   display: flex;
+`;
+
+const Left = styled.div`
+  width: 170px;
 
   h3 {
     font-family: 'Roboto', sans-serif;
@@ -90,7 +94,7 @@ const Container = styled.div`
 
 const Icon = styled.div`
   margin-left: 18px;
-  padding-left: 10px;
+  padding-left: 14px;
   border-left: 1px solid #cfcfcf;
   display: flex;
   flex-direction: column;
